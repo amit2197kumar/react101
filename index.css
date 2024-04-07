@@ -11,3 +11,21 @@ body {
   text-shadow: 2px 2px 2px violet;
   padding: 20px 20px;
 }
+
+.subheading {
+  font-weight: 600;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  background-color: lightcyan;
+  color: blue;
+  text-shadow: 2px 2px 2px lightskyblue;
+  padding: 20px 60px;
+}
+
+h1 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+h2 {
+  margin-top: 0px;
+}
