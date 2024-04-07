@@ -28,4 +28,13 @@ h1 {
 
 h2 {
   margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.section {
+  background-color: lightpink;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  color: black;
+  text-shadow: 5px 5px 5px gray;
+  padding: 10px 10px;
 }
