@@ -1,0 +1,29 @@
+{
+  "name": "react101",
+  "version": "1.0.0",
+  "description": "e2 of namaste React",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amit2197kumar/react101.git"
+  },
+  "keywords": [
+    "reactjs"
+  ],
+  "author": "Amit Kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amit2197kumar/react101/issues"
+  },
+  "homepage": "https://github.com/amit2197kumar/react101#readme",
+  "devDependencies": {
+    "parcel": "^2.12.0"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
