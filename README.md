@@ -1,4 +1,4 @@
-# E2.Igniting Our App
+# E2. Igniting Our App
 
 ## Learning
 1. Bundlers
