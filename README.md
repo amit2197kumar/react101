@@ -9,6 +9,7 @@
 6. `Components`
 7. `Functional Components`
 8. `Composing Components`
+9. `react element`
 
 ## Assignment
 
