@@ -92,3 +92,8 @@ const Component = () => (
 );
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<Component />);
+
+
+/*
+CHECK OUTPUT IN ATTACHED PNG
+*/
