@@ -11,7 +11,7 @@
 8. `Composing Components`
 9. `react element`
 
-## Assignment
+## Notes
 
 **What is `JSX`?**
 
@@ -237,7 +237,7 @@ Overall, Babel plays a crucial role in modern web development, particularly in R
   > passing Component inside conponent is known as Component Composition
 
 
-## Try & Run
+## Code Practice
 
 **Create a `Nested header Element` using `React.createElement`(h1,h2,h3 inside a div with class "title")**
 ```
