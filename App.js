@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import restList from './mockData'
 
 /**
  * Navbar
@@ -33,44 +34,42 @@ const Navbar = () => {
   );
 }
 
-const Card = () => {
+const Card = ({ restaurantData }) => {
+
+  const {
+    name,
+    cuisines,
+    avgRating,
+    costForTwoString,
+    deliveryTime,
+    cloudinaryImageId,
+  } = restaurantData.data;
+
   return (
     <div className="rest-card">
       <img
-        src="https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a"
+        src={
+          "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" +
+          cloudinaryImageId
+        }
         alt="logo"
         className="rest-card-image"
       />
-      <h1 className="rest-name-h1">Meghana Biryani</h1>
-      <h2 className="rest-cusine-h2">Cusine: Biryani, Indian</h2>
-      <p className="rest-info-p">Rating: 4.5</p>
-      <p className="rest-info-p">Price for two: INR 500</p>
-      <p className="rest-info-p">Delivary Time: 45 Min</p>
+      <h1 className="rest-name-h1">{name}</h1>
+      <h2 className="rest-cusine-h2">{cuisines.join(", ")}</h2>
+      <p className="rest-info-p">{avgRating}</p>
+      <p className="rest-info-p">{costForTwoString}</p>
+      <p className="rest-info-p">{deliveryTime} Mins</p>
     </div>
   );
-}
+};
 
 const Restaurants = () => {  
   return (
     <div className="rest-list">
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
+      {restList.map((restaurant) => {
+        return <Card key={restaurant.data.id} restaurantData={restaurant} />;
+      })}
     </div>
   );
 }
