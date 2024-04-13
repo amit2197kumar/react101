@@ -9,7 +9,7 @@
 6. Installing react as a packge using npm
 7. Setting up our own create-react-app setup without using create-react-app
 
-## Assignment
+## Notes
 
 **What is `NPM`?**
 
