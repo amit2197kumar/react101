@@ -67,3 +67,29 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+.body {
+  margin-top: 20px;
+}
+
+.flt-btn {
+  margin: 0px 5px;
+  padding: 5px 10px;
+  font-weight: bold;
+}
+
+.top-rated-btn {
+  background-color: gold;
+}
+
+.veg-res-btn {
+  background-color: lightgreen;
+}
+
+.non-veg-res-btn {
+  background-color: lightcoral;
+}
+
+.reset-filter-btn {
+  background-color: whitesmoke;
+}
