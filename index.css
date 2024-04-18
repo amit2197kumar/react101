@@ -93,3 +93,30 @@
 .reset-filter-btn {
   background-color: whitesmoke;
 }
+
+.search-div {
+  margin: 10px 5px;
+}
+
+.search-input {
+  width: 210px;
+}
+
+.search-btn {
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+.search-result {
+  color: red;
+  margin: 5px 0px;
+  font-weight: bold;
+}
+
+.shimmer-card {
+  margin-top: 20px;
+  background-color: lightgray;
+  width: 150px;
+  height: 250px;
+  margin-right: 20px;
+}

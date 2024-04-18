@@ -5,10 +5,9 @@ const RestaurantCard = ({ restaurantData }) => {
     name,
     cuisines,
     avgRating,
-    costForTwoString,
-    deliveryTime,
+    costForTwo,
     cloudinaryImageId,
-  } = restaurantData.data;
+  } = restaurantData;
 
   return (
     <div className="rest-card">
@@ -20,8 +19,10 @@ const RestaurantCard = ({ restaurantData }) => {
       <h1 className="rest-name-h1">{name}</h1>
       <h2 className="rest-cusine-h2">{cuisines.join(", ")}</h2>
       <p className="rest-info-p">{avgRating}</p>
-      <p className="rest-info-p">{costForTwoString}</p>
-      <p className="rest-info-p">{deliveryTime} Mins</p>
+      <p className="rest-info-p">{costForTwo}</p>
+      <p className="rest-info-p">
+        {restaurantData.sla.deliveryTime} Mins
+      </p>
     </div>
   );
 }

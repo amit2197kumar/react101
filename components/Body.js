@@ -1,19 +1,87 @@
 import RestaurantCard from "./RestaurantCard";
 import mockData from "../utils/mockData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { SWIGGY_PUBLIC_GET_RES_API } from "../utils/constants";
+import ShimmerUI from "./Shimmer";
 
 const Body = () => {
-  const [listOfRestaurants, setListOfRestaurants] = useState(mockData);
+  const [searchText, setSearchText] = useState("");
+  const [searchResult, setSearchResult] = useState("");
+  const [listOfAllRestaurants, setListOfAllRestaurants] = useState([]);
+  const [listOfFilteredRestaurants, setListOfFilteredRestaurants] = useState(
+    []
+  );
+
+  useEffect(() => {
+    fetchRestorantData();
+  }, []);
+
+  async function fetchRestorantData() {
+    const data = await fetch(SWIGGY_PUBLIC_GET_RES_API);
+    const jsonData = await data.json();
+
+    setListOfAllRestaurants(
+      jsonData.data.cards[4].card.card.gridElements.infoWithStyle.restaurants
+    );
+    setListOfFilteredRestaurants(
+      jsonData.data.cards[4].card.card.gridElements.infoWithStyle.restaurants
+    );
+  }
+
+  // Filter the restaurant data according input type
+  function searchRestaurant(searchText, restaurantData) {
+    const filterData = restaurantData.filter((restaurant) => {
+      return (
+        restaurant?.info?.name
+          ?.toLowerCase()
+          .includes(searchText.toLowerCase()) ||
+        restaurant?.info?.cuisines
+          .join(", ")
+          .toLowerCase()
+          .includes(searchText.toLowerCase())
+      );
+    });
+
+    return filterData;
+  }
 
   return (
     <div className="body">
+      <div className="search-div">
+        <input
+          type="text"
+          placeholder="Search for restaurants or cuisines"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          className="search-input"
+        />
+        <button
+          className="search-btn"
+          onClick={() => {
+            const filteredRestaurants = searchRestaurant(
+              searchText,
+              listOfAllRestaurants
+            );
+            if (filteredRestaurants.length === 0) {
+              setSearchResult("No Match Found !!!");
+            } else {
+              setSearchResult("");
+            }
+            setListOfFilteredRestaurants(filteredRestaurants);
+          }}
+        >
+          Search
+        </button>
+        <div className="search-result">{searchResult}</div>
+      </div>
+
       <button
         className="top-rated-btn flt-btn"
         onClick={() => {
-          const filteredRestaurants = listOfRestaurants.filter(
-            (restaurant) => restaurant.data.avgRating > 4
+          const filteredRestaurants = listOfAllRestaurants.filter(
+            (restaurant) => restaurant.info.avgRating > 4.3
           );
-          setListOfRestaurants(filteredRestaurants);
+          setListOfFilteredRestaurants(filteredRestaurants);
         }}
       >
         Top Rated
@@ -22,10 +90,10 @@ const Body = () => {
       <button
         className="veg-res-btn flt-btn"
         onClick={() => {
-          const filteredVegRestaurants = listOfRestaurants.filter(
-            (restaurant) => restaurant.data.veg === true
+          const filteredVegRestaurants = listOfAllRestaurants.filter(
+            (restaurant) => restaurant.info.veg === true
           );
-          setListOfRestaurants(filteredVegRestaurants);
+          setListOfFilteredRestaurants(filteredVegRestaurants);
         }}
       >
         Veg
@@ -34,10 +102,10 @@ const Body = () => {
       <button
         className="non-veg-res-btn flt-btn"
         onClick={() => {
-          const filteredVegRestaurants = listOfRestaurants.filter(
-            (restaurant) => restaurant.data.veg !== true
+          const filteredNonVegRestaurants = listOfAllRestaurants.filter(
+            (restaurant) => restaurant.info.veg !== true
           );
-          setListOfRestaurants(filteredVegRestaurants);
+          setListOfFilteredRestaurants(filteredNonVegRestaurants);
         }}
       >
         Non-Veg
@@ -46,21 +114,27 @@ const Body = () => {
       <button
         className="reset-filter-btn flt-btn"
         onClick={() => {
-          setListOfRestaurants(mockData);
+          setListOfFilteredRestaurants(listOfAllRestaurants);
+          setSearchResult("");
+          setSearchText("");
         }}
       >
         Reset all filter
       </button>
 
       <div className="rest-list">
-        {listOfRestaurants.map((restaurant) => {
-          return (
-            <RestaurantCard
-              key={restaurant.data.id}
-              restaurantData={restaurant}
-            />
-          );
-        })}
+        {listOfAllRestaurants?.length === 0 ? (
+          <ShimmerUI />
+        ) : (
+          listOfFilteredRestaurants.map((restaurant) => {
+            return (
+              <RestaurantCard
+                key={restaurant.info.id}
+                restaurantData={restaurant.info}
+              />
+            );
+          })
+        )}
       </div>
     </div>
   );
