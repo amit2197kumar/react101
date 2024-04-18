@@ -1,5 +1,5 @@
 # Namaste React
-Following course [Namaste react](https://namastedev.com/learn/namaste-react)
+ [Namaste react](https://namastedev.com/learn/namaste-react)
 
 ## Learning time track
 | Episode | Start | End | Learning | Notes Link |
@@ -9,4 +9,5 @@ Following course [Namaste react](https://namastedev.com/learn/namaste-react)
 | 3. Laying The Foundation | 09/04 | 09/04 | JSX, React.createElement vs JSX, Babel & parcel role in JSX, Components | [Learning from Episode 3](https://github.com/amit2197kumar/react101/blob/episode3/README.md) |
 | 4. Talk is cheap, show me the code | 10/04 | 13/04 | Props | [Learning from Episode 4](https://github.com/amit2197kumar/react101/blob/episode4/README.md) |
 | 5. Let's Get Hooked | 14/04 | 15/04 | hooks, useState, export & import | [Learning from Episode 5](https://github.com/amit2197kumar/react101/blob/episode5/README.md) |
+| 6. Exploring The World | 16/04 | 18/04 | useEfferct(), fetch(), Conditional Rendering | [Learning from Episode 6](https://github.com/amit2197kumar/react101/blob/episode6/README.md) |
 
