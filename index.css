@@ -120,3 +120,19 @@
   height: 250px;
   margin-right: 20px;
 }
+
+.nav-items {
+  display: flex;
+  justify-content: space-between;
+}
+
+.signIn-btn {
+  width: 150px;
+  height: 40px;
+  margin-top: 40px;
+  background-color: lightcyan;
+  font-weight: bolder;
+  font-size: large;
+  text-shadow: 2px 2px 2px white;
+  border-radius: 5%;
+}
