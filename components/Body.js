@@ -1,5 +1,4 @@
 import RestaurantCard from "./RestaurantCard";
-import mockData from "../utils/mockData";
 import { useEffect, useState } from "react";
 import { SWIGGY_PUBLIC_GET_RES_API } from "../utils/constants";
 import ShimmerUI from "./Shimmer";

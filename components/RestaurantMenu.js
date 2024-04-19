@@ -25,8 +25,8 @@ const RestaurantMenu = () => {
         ?.card?.itemCards;
     setMenuItems(menuData);
 
-    console.log(restaurantData);
-    console.log(menuData);
+    // console.log(restaurantData);
+    // console.log(menuData);
   }
 
   if (menuItems.length === 0) {
