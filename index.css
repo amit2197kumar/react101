@@ -136,3 +136,11 @@
   text-shadow: 2px 2px 2px white;
   border-radius: 5%;
 }
+
+.error-page {
+  text-align: center;
+  background-color: yellow;
+  color: red;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-shadow: 1px 1px 1px black;
+}

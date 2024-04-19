@@ -1,5 +1,6 @@
 import { LOGO_IMAGE } from "../utils/constants";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {  
 
@@ -13,17 +14,26 @@ const [authState, setAuthState] = useState("Sign-In");
 
       <div className="nav-items">
         <ul className="nav-links">
-          <li>Home</li>
-          <li>About</li>
-          <li>Contact</li>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/about">About</Link>
+          </li>
+          <li>
+            <Link to="/contact">Contact</Link>
+          </li>
           <li>Cart</li>
         </ul>
 
-        <button className="signIn-btn" onClick={
-          () => {
+        <button
+          className="signIn-btn"
+          onClick={() => {
             setAuthState(authState === "Sign-In" ? "Sign-Out" : "Sign-In");
-          }
-        }>{authState}</button>
+          }}
+        >
+          {authState}
+        </button>
       </div>
     </nav>
   );
