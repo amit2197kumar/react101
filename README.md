@@ -1,4 +1,4 @@
-# E6. Exploring The World
+# E7. Finding the path
 
 ## Learning
 - `create-router-dom` package
