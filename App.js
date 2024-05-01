@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {lazy, Suspense} from 'react';
 import ReactDOM from 'react-dom';
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Header from './components/Header';
@@ -9,6 +9,8 @@ import Test from "./components/Test";
 import Error from "./components/Error";
 import RestaurantDetail from "./components/RestaurantMenu";
 
+// Lazy loading, import only when needed, code splitting, reduce initial bundle size
+const Grocery = lazy(() => import('./components/Grocery'));
 
 const App = () => {
   return (
@@ -40,6 +42,14 @@ const appConfig = createBrowserRouter([
       {
         path: "/restaurant/:id",
         element: <RestaurantDetail />,
+      },
+      {
+        path: "/grocery",
+        element: (
+          <Suspense fallback={<h1>Loading...</h1>}>
+            <Grocery />
+          </Suspense>
+        ),
       },
     ],
   },

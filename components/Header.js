@@ -23,7 +23,9 @@ const [authState, setAuthState] = useState("Sign-In");
           <li>
             <Link to="/contact">Contact</Link>
           </li>
-          <li>Cart</li>
+          <li>
+            <Link to="/grocery">Grocery</Link>
+          </li>
         </ul>
 
         <button
