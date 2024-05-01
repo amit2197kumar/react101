@@ -11,4 +11,4 @@
 | 5. Let's Get Hooked | 14/04 | 15/04 | hooks, `useState()`, `export & import` | [Learning from Episode 5](https://github.com/amit2197kumar/react101/blob/episode5/README.md) |
 | 6. Exploring The World | 16/04 | 18/04 | `useEfferct()`, `fetch()`, Conditional Rendering | [Learning from Episode 6](https://github.com/amit2197kumar/react101/blob/episode6/README.md) |
 | 7. Finding the path | 19/04 | 19/04 | `create-router-dom`, `createBrowserRoute`, `RouterProvider` component, `< Link to="">`, `Outlet`, `useRouteError`, `useParams`  | [Learning from Episode 7](https://github.com/amit2197kumar/react101/blob/episode7/README.md) |
-
+| 9. Optimizing our App | 01/05 | 01/05 | Custom Hooks, Lazy Loading | [Learning from Episode 9](https://github.com/amit2197kumar/react101/blob/episode9/README.md) |
