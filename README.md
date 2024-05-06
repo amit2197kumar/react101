@@ -1,4 +1,4 @@
-# E7. Optimizing our App
+# E9. Optimizing our App
 
 ## Learning
 - Keeping all the helper & utility function in `utils` folder.
