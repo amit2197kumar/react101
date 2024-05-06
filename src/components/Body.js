@@ -45,24 +45,28 @@ const Body = () => {
   }
 
   return (
-    <div className="body">
-      <div className="search-div">
+    <div className="bg-gray-100 m-0">
+      <div className="ml-10 pt-5">
         <input
           type="text"
           placeholder="Search for restaurants or cuisines"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
-          className="search-input"
+          className="w-auto border rounded-lg border-black-500 bg-white-500 text-black px-2 py-1"
         />
         <button
-          className="search-btn"
+          className="border rounded-lg border-black-400 bg-gray-500 text-white px-2 py-1 ml-2"
           onClick={() => {
             const filteredRestaurants = searchRestaurant(
               searchText,
               listOfAllRestaurants
             );
             if (filteredRestaurants.length === 0) {
-              setSearchResult("No Match Found !!!");
+              setSearchResult(
+                <h2 className="m-2 font-bold text-red-600">
+                  No Match Found !!! Try other restaurants or cuisines.
+                </h2>
+              );
             } else {
               setSearchResult("");
             }
@@ -75,7 +79,7 @@ const Body = () => {
       </div>
 
       <button
-        className="top-rated-btn flt-btn"
+        className="border rounded-lg border-black-400 bg-yellow-300 text-black px-2 py-1 ml-10 mt-5"
         onClick={() => {
           const filteredRestaurants = listOfAllRestaurants.filter(
             (restaurant) => restaurant.info.avgRating > 4.3
@@ -87,7 +91,7 @@ const Body = () => {
       </button>
 
       <button
-        className="veg-res-btn flt-btn"
+        className="border rounded-lg border-black-400 bg-green-300 text-black px-2 py-1 ml-2 mt-5"
         onClick={() => {
           const filteredVegRestaurants = listOfAllRestaurants.filter(
             (restaurant) => restaurant.info.veg === true
@@ -99,7 +103,7 @@ const Body = () => {
       </button>
 
       <button
-        className="non-veg-res-btn flt-btn"
+        className="border rounded-lg border-black-400 bg-red-500 text-black px-2 py-1 ml-2 mt-5"
         onClick={() => {
           const filteredNonVegRestaurants = listOfAllRestaurants.filter(
             (restaurant) => restaurant.info.veg !== true
@@ -111,7 +115,7 @@ const Body = () => {
       </button>
 
       <button
-        className="reset-filter-btn flt-btn"
+        className="border rounded-lg border-black-400 bg-gray-500 text-white px-2 py-1 ml-2 mt-5"
         onClick={() => {
           setListOfFilteredRestaurants(listOfAllRestaurants);
           setSearchResult("");
@@ -121,7 +125,7 @@ const Body = () => {
         Reset all filter
       </button>
 
-      <div className="rest-list">
+      <div className="m-8 flex flex-wrap">
         {listOfAllRestaurants?.length === 0 ? (
           <ShimmerUI />
         ) : (

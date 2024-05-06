@@ -1,155 +1,265 @@
-# E7. Optimizing our App
+# E10. Jo Dikhta Hai, Vo Bikta Hai
 
 ## Learning
-- Keeping all the helper & utility function in `utils` folder.
-- What is `Custom Hooks`
-- Why do we need Custom Hooks
-- When should I create Custom Hooks
-- Created custom hooks `useRestaurant` [we offloaded the responsibilty of fetch() over there]
-- Created a custom hooks `useOnline` from scrach.
-- `Chunking` / `Code Spliting` / `Dynamic Bundling` / `Lazy Loading` / `On Demand Loading` / `Dynamic Import` / `Bundle Chunking`
-- How to `Lazy Load`?
-- Why do we lazy load things?
-- How do we do `Chunking` ?
-- How to do `Bundle Spiliting? (i.e load on demand)
+- Explored all the ways of writing css in React.
+- Configured tailwind.
+- Re-built our food-order-app using tailwind css.
 
 ## Notes
 
-**When and why do we need `lazy()`?**
+**Explore all the ways of writing css.**
 
-- `React.lazy()` is used to dynamically import a component when it is first rendered, instead of importing at the beginning when the file loads. This is called `Code Splitting`/ `On-demading loading`.
-- In our example : In [App.js](https://github.com/deltanode/react-playground/blob/main/09-optimizing-our-app/src/App.js), `Instamart` component and `About` component are lazy loaded, which means only when the user clicks on the navigation button, those components are imported and rendered. This improves the performance of the application. So, lazy is used when that component might not be used by all users, instead of loaded in the beginning, only when the user really needs it, its loaded.
-- It is also known as `Chunking` / `Code Spliting` / `Dynamic Bundling` / `Lazy Loading` / `On Demand Loading` / `Dynamic Import` / `Bundle Chunking`
+1. `Native CSS` - all components's styles in a single file index.css
+2. `SCSS` - Syntactical CSS - it is then converted to css
+3. `Inline - style attribute` - pass object - {{backgroundColor : "red"}}
+4. `Component Library` - MaterialUI, Bootstrap, Base Web UI, Ant design, chakra UI
+5. `styled-components`
+6. `CSS Framework` - **Tailwind**
 
 ---
 
-**What is `suspense`?**
+**How do we configure tailwind?**
 
-- `Suspense component` allows us to show some **fallback** content (such as a Shimmer/Loading indicator component) while we’re waiting for the lazy component to load or the component is not yet rendered. It is similar to `catch` block.
-- If a component suspends, the closest `Suspense` component above the suspending component `catches` it
+Below are the steps to use Tailwind CSS for React App in Parcel :
+
+- `Install tailwind css`
+    - Below command will *install* tailwindcss and its peer dependencies via npm, and then run the init command to *generate* **tailwind.config.js**.
+        
+        ```
+        npm install -D tailwindcss postcss
+        npx tailwindcss init
+        
+        ```
+        
+- `Configure PostCSS`
+    - Now, create a **.postcssrc**file in your project root, and **enable** the tailwindcss plugin.
+        
+        ```
+        {
+          "plugins": {
+            "tailwindcss": {}
+          }
+        }
+        ```
+        
+- `Configure your template paths`
+    - Now, **add** the paths to all of your template files in your tailwind.config.js file.
+        
+        ```
+        module.exports = {
+          content: [
+            "./src/**/*.{html,js,ts,jsx,tsx}",
+          ],
+          theme: {
+            extend: {},
+          },
+          plugins: [],
+        }
+        
+        ```
+        
+- `Add the Tailwind directives` to your CSS
+    - Now, **create** a ./src/`index.css` file and **add** the `@tailwind directives` for each of Tailwind’s layers.
+        
+        ```
+        @tailwind base;
+        @tailwind components;
+        @tailwind utilities;
+        
+        ```
+        
+- Start your build process
     
     ```
-    import React, { Suspense } from 'react';
+    npx parcel src/index.html
     
-    const About = React.lazy(() => import('./About'));
+    ```
     
-    function MyComponent() {
-      return (
-        <div>
-          <Suspense fallback={<div>Loading...</div>}>
-            <About />
-          </Suspense>
-        </div>
-      );
+- Now, you are ready to start using Tailwind in your project.
+- For more, refer [Tailwind CSS Docs](https://tailwindcss.com/docs/installation/framework-guides)
+
+---
+
+**In tailwind.config.js, what does all the keys mean (content, theme, extend, plugins)?**
+
+```
+module.exports = {
+  content: [
+    "./src/**/*.{html,js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+- `content`: This section is where you configure the paths to all of your HTML templates, JS components, and any other files that contain Tailwind class names.
+- `theme`: In this, we can customize color palette, spacing scale, typography scale, or breakpoints using theme section of your tailwind.config.js file
+- `plugins`: The plugins section allows you to register plugins with Tailwind that can be used to generate extra utilities, components, base styles, or custom variants.
+
+```
+module.exports = {
+  // Using content property to provide the path for the html files
+  content: ["./*html"],
+  
+  // Using extend property to set custom color & font
+  theme: {
+    extend: {
+      colors: {
+        "custom-blue": "#00BAFF",
+        "custom-purple": "#6336FA"
+      }
+    },
+    fontFamily: {
+      Poppins: ["Poppins, sans-serif"]
+    }
+  },
+  
+  plugins: []
+}
+```
+
+---
+
+**Why do we have .postcssrc file?**
+
+- PostCSS is a Node.js tool that transforms your styles using JavaScript plugins.
+- Despite its name, it is neither a post-processor nor a pre-processor, **it is just a transpiler** that **turns** a special PostCSS plugin syntax **into** a Vanilla CSS. You can think of it as the Babel tool for CSS.
+- So, we used `PostCSS` to transpile the tailwind css code into Vanilla CSS.
+- Remember, while installing tailwind, we install postcss as its peer dependency. So, we create a '.postcssrc' file in project root, and **enable** the tailwindcss plugin.
+    
+    ```
+    {
+      "plugins": {
+        "tailwindcss": {}
+      }
     }
     ```
     
-- The `fallback` prop accepts any `React elements` that you want to render while waiting for the component to load.
-- You can place the Suspense component anywhere above the lazy component.
-- You can even wrap `multiple lazy components` with a `single` Suspense component.
-
----
-
-**Why we got this `error`: A component was suspended while responding to `synchronous input`. This will cause the `UI` to be replaced with a `loading indicator`. To `fix this`, `updates that suspend` should be wrapped with `start transition`? How does `suspense fix` this error?**
-
-- This error is thrown as Exception by React when the promise to dynamically import the lazy component is not yet resolved and the Component is expected to render in the meantime.
-- If only the dynamic import is done and there is no `<Suspense />` component then this error is shown.
-- React expects a Suspense boundary to be in place for showing a fallback prop until the promise is getting resolved.
-- If showing the shimmer (loading indicator) is not desirable in some situations, then `startTransistion` API can used to show the old UI while new UI is being prepared.
-- React do this without having to delete or remove the Suspense component or its props from your code.
-
----
-
-**`Advantages and Disadvantages` of using this `code splitting pattern`?**
-
-| Advantages | Disadvantages |
-| --- | --- |
-| Reduces the page load time by bundling the large code into smaller bundles and laoding dynamically only when the component is loaded | Though the initial page load time is reduced, this increases the load time of each component thats loaded dynamically |
-| Only the components that the user needs are loaded initially | There will be many http requests as the components are loaded dynamically |
-| Cna imporve the user experience while loaded by showing suspense fallback/ loading dicator | But, this suspense boundary needs a new chunk of code to be written for showing the shimmer component |
-
----
-
-**When `do we and why do we need suspense`?**
-
-- Suspense are useful when the components are `waiting` (React.lazy components are getting dynamically loaded) before rendering.
-- Today, React Suspense only supports one use case which is loading components dynamically with React lazy().
-- In the future, it will support other use cases like data fetching.
+- For more detail [refer](https://www.freecodecamp.org/news/what-is-postcss/)
 
 ## Quick Revise
 
-- We use `hooks` everyday in our code in functional component:
-- Basic hooks: `useState()` and `useEffect()`
+- Why frameworks?
 
-**Custom Hooks**
+  - optimized css,
+  - consistent UI
+  - saves time.
+  - Eg : MaterialUI, Bootstrap, Base Web UI, Ant design, chakra UI
 
-- Why ? How ? When ?
-- Why ?
-    - Readability,
-    - Resuability,
-    - maintainability / modularity / sepration of concern
-    - testability
-- Why we use functions ?
-    - To perform some task that can be reused.
-- There should be something common, where we can keep our utility functions and use in our code
-    - **`utils folder`**: reusable functions could be placed here
+- Can we use more than one framework ?
 
-**Creating Custom Hooks**
+  - It's all package can use any number of frameworks,
+  - But, not consistent way
 
-- `RestaurantMenu.js` Component is doing two things : `fetching data` & `displaying data`
-- Now, we simply want the component tp do only one job : display data. So, we are moving fetching logic to `custom hook`
-- Whenever creating a custom hook
-    - create in a new file .
-    - create hook name with `use` word. [This is a react way of doing things. Eg: useState()]
-- Why **export** `default` for custom hook
-    - Since there is only one separate hook for each hook function.
-- Why `named` **export** for config file
-    - As, there are many functions and variables in config.js
-- Update state using custom hook
-    - Inside custom hook => state & useEffect and async API call
-- **Create Custom hook** for `checking internet connection` : to use only once
-    - How to fake offline -> network tab -> offline
-    - Cleanup `eventListener` while moving out of that component.
-- Assigment :
-    - creat custom hook for `Local Storage`. [Hint: Get and Set local variables]
+- Different ways to write css :
 
-**Code Splittling**
+  1. **Normal Native CSS** - all components's styles in a single file index.css
+  2. **SCSS** - Syntactical CSS - atlast it is converted to css
+  3. **Inline CSS** - style attribute - pass object - {{backgroundColor : "red"}}
+  4. **Component Library** - MaterialUI, Bootstrap, Base Web UI, Ant design, chakra UI
+  5. **CSS Framework** - Tailwind
+  6. **Styled Components**: Majorly used in react projects.
 
-- Code Splittling
-    - also known as Dynamic bundling
-    - also known as Lazy loading
-    - also known as Chunking
-    - also known as On Demand loading
-    - also known as On Logical bundles
-- Import `Instamart.js` using **`lazy load`**
-    - This is a promise
-    - Initially, on demand loaded components, will not be laoded
-    - React suspends the loading using Suspense
-- **DISCLAMER**: Don't lazy load inside component, As, it will reload everytime during re-renders.
+- **Important**: In a `system design round of interview`, you always have to discuss that
 
----
+  - what will you use for styling your components?
+  - Now, there are differnet ways, you can style your web apps.
+  - But, what way you will choose & you have give a a good reason for it.
+  - So, you should know what are the pros & cons of using them.
+  - Exapmle: what are pros & cons of using `Native CSS` over `SCSS` or `component library`
 
-## Timeline
+- Pros & Cons of using Component librery (i.e MaterialUI, Bootstrap, etc)
 
-```
-00:02:00 – Custom Hooks, Single Responsibility Principle
-00:04:25 – Modularity
-00:09:23 – Hook
-00:20:00 – Create custom Hook – useRestaurantMenu 
-00:21:00 – write useEffect(), fetch(), How to optimize the code using custom hook?
-00:32:00 – Make a custom Hook & put as packages (examples)
-00:34:00 – A Hook to tell the user in Online or Offline
-00:36:30 – Under utils folder create useOnlineStatus.js
-00:47:07 – coding useOnlineStatus.js
-00:48:00 – usage of dev console on browser, Making the network offline
-00:50:42 – How to build green dot & red dot to identify online or offline (Reusability feature of React)
-00:54:45 – Should we write “use” in a hook? Is it mandatory?
-00:58:45 – How to further optimize the code?
-01:03:00 – MakeMyTrip website
-01:06:00 – Make smaller modules, code-splitting, chunking, Dynamic Bundling, Lazy Loading
-01:17:30 – Lazy Loading
-01:25:25 – Suspense keyword
-01:33:00 – how to optimize the code (Till this discussed)
-01:35:00 – Implementing Lazy Loading to other web pages
-01:36:00 – Interview Tips
-```
+  - Pros :
+
+    - `consistent UI`: (All the button in your app will look the same now)
+    - save time
+
+  - Cons :
+    - Bundle size -
+    - Loose control over design
+    - personal customizition is hard
+
+### Tailwind CSS:
+
+- When? How? & Why? to use it.
+
+- writing css on the go (i.e in the same file )
+- reusablity
+- less bundle size (minimal css) only includes the css classes that we have used
+- Flexible UI (Customizable)
+
+#### Seting up tailwimd css in our project: refer [Tailwind Docs](https://tailwindcss.com/docs/installation/framework-guides)
+
+1. Installing `tailwind` & `postcss` using npm [for parcel]
+
+   ```
+   npm install -D tailwindcss postcss
+   npx tailwindcss init
+   ```
+
+2. Configure Tailwind:
+
+   - use command `npm tailwind init`
+   - This will create `tailwind.config.js` file
+   - Now, we will be telling tailwind which all files to scan (i.e Configure your template paths)
+
+     ```
+      /** @type {import('tailwindcss').Config} */
+      module.exports = {
+        content: [
+          "./src/**/*.{html,js,ts,jsx,tsx}",
+        ],
+        theme: {
+          extend: {},
+        },
+        plugins: [],
+      }
+
+     ```
+
+3. Configure postcss:
+   - Create `.postcssrc` file.
+   - Configure PostCSS:
+   ```
+   {
+     "plugins""{
+       "tailwindcss": {}
+     }
+   }
+   ```
+   - In this `.postcssrc` file, we have to tell the `parcel`(i.e bundler) that we will be using tailwind. So, compile our tailwind css into normal css during the build. This is the reason, we use `.postcssrc` configuration.
+4. Now, in 'index.css`
+   - We will not be writing any css in it.
+   - Instead there will only three lines inside it (i.e Add the Tailwind directives to your CSS):
+     ```
+     @tailwind base;
+     @tailwind components;
+     @tailwind utilities;
+     ```
+
+- Add a plugin/extension `Tailwind CSS IntelliSense` in VScode.
+
+> **NOTE**: Sometime `Tailwind CSS IntelliSense` extension doesn't show suggetions. In that case `press ctrl + spacebar` before typing any class.
+
+### Pros & Cons of tailwind
+
+- Pros:
+
+  - Saves Time (faster developnment)
+  - Easy to debug
+  - Less code is shipped
+  - No duplicates CSS
+  - Bundle size is small
+  - Much more customisable (then other frameworks like MaterialUi, Bootstrap,...)
+  - Gives much more control over things
+
+- Cons:
+  - Initial learning curve: every new developer that will join our team will take some time understand & learn.
+  - Too much class. So, readability is compromised a little.
+
+> **Note**: Because of `JSX` & `tailwind` we don't have to move out of our `.js` file.
+
+- Tailwind Cheatsheet: [Cheatsheet 1](https://nerdcave.com/tailwind-cheat-sheet) | [Cheatsheet 2](https://tailwindcomponents.com/cheatsheet/)

@@ -12,19 +12,19 @@ const RestaurantCard = ({ restaurantData }) => {
   } = restaurantData;
 
   return (
-    <div className="rest-card">
+    <div className="w-40 p-3 m-2 bg-gray-200 rounded-lg hover:bg-gray-300">
       <img
         src={CDN_URL + cloudinaryImageId}
         alt="rest-logo"
-        className="rest-card-image"
+        className="w-40 h-40 object-cover rounded-lg"
       />
-      <h1 className="rest-name-h1">
+      <h1 className="font-bold">
         <Link to={"/restaurant/" + id}>{name}</Link>
       </h1>
-      <h2 className="rest-cusine-h2">{cuisines.join(", ")}</h2>
-      <p className="rest-info-p">{avgRating}</p>
-      <p className="rest-info-p">{costForTwo}</p>
-      <p className="rest-info-p">{restaurantData.sla.deliveryTime} Mins</p>
+      <h2 className="font-light">{cuisines.join(", ")}</h2>
+      <p className="font-bold">{avgRating} ⭐️</p>
+      <p className="font-light">{costForTwo}</p>
+      <p className="font-light">{restaurantData.sla.deliveryTime} Mins</p>
     </div>
   );
 }

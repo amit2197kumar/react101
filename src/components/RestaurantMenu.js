@@ -9,14 +9,16 @@ const RestaurantMenu = () => {
   const [restaurantDetails, menuItems] = useRestaurantMenu(id);
 
   if (menuItems.length === 0) {
-    return (<div className="rest-list">
-      <ShimmerUI />
-    </div>);
+    return (
+      <div className="flex flex-wrap rounded-lg bg-gray-200">
+        <ShimmerUI />
+      </div>
+    );
   }
 
   return (
-    <div>
-      <div className="rest-header">
+    <div className="m-10 p-10 bg-yellow-100 rounded-xl">
+      <div className="font-bold text-xl">
         <h1>{restaurantDetails.name}</h1>
         <h2>Location: {restaurantDetails.locality}</h2>
         <p>
@@ -27,8 +29,8 @@ const RestaurantMenu = () => {
         <p>{restaurantDetails.costForTwoMessage}</p>
       </div>
 
-      <div className="rest-menu">
-        <h2>Restaurant Menu</h2>
+      <div className="mt-10">
+        <h2 className="font-bold">Restaurant Menu:</h2>
         <ul>
           {menuItems?.map((menuItem, index) => {
             return <li key={index}>{menuItem?.card?.info?.name}</li>;
