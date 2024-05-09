@@ -1,4 +1,4 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import { SWIGGY_PUBLIC_GET_RES_API } from "../utils/constants";
 import ShimmerUI from "./Shimmer";
@@ -10,6 +10,8 @@ const Body = () => {
   const [listOfFilteredRestaurants, setListOfFilteredRestaurants] = useState(
     []
   );
+
+  const RestaurantCardWithPromotedLabel = withPromotedLabel(RestaurantCard);
 
   useEffect(() => {
     fetchRestorantData();
@@ -130,7 +132,12 @@ const Body = () => {
           <ShimmerUI />
         ) : (
           listOfFilteredRestaurants.map((restaurant) => {
-            return (
+            return restaurant.info.aggregatedDiscountInfoV3 ? (
+              <RestaurantCardWithPromotedLabel
+                key={restaurant.info.id}
+                restaurantData={restaurant.info}
+              />
+            ) : (
               <RestaurantCard
                 key={restaurant.info.id}
                 restaurantData={restaurant.info}
