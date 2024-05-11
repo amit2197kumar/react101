@@ -15,11 +15,25 @@ const useRestaurantMenu = (id) => {
 
     const restaurantData = data?.data?.cards[2].card.card.info;
     setRestaurantDetails(restaurantData);
-    // console.log("menu data", data?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards)
-    const menuData =
-      data?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card
-        ?.card?.itemCards;
-    setMenuItems(menuData);
+
+    const categories =
+      data?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.filter(
+        (c) => {
+          if (
+            c.card?.card?.["@type"] ===
+            "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+          ) {
+            return c.card?.card?.["@type"];
+          } else if (
+            c.card?.card?.["@type"] ===
+            "type.googleapis.com/swiggy.presentation.food.v2.NestedItemCategory"
+          ) {
+            return c?.card?.card?.categories[0]?.itemCards;
+          }
+        }
+      );
+
+    setMenuItems(categories);
   };
 
   return [restaurantDetails, menuItems];
