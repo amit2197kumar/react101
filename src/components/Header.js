@@ -1,10 +1,15 @@
 import { LOGO_IMAGE } from "../utils/constants";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { Provider } from "react-redux"; // Import the Provider component
 
 const Header = () => {  
 
 const [authState, setAuthState] = useState("Sign-In");
+
+// Subscribing to store using a selector
+const cart = useSelector((store) => store.cart.items);
 
   return (
     <nav className="flex bg-gray-100 justify-between items-center">
@@ -13,18 +18,21 @@ const [authState, setAuthState] = useState("Sign-In");
       </div>
 
       <div className="nav-items flex">
-        <ul className="flex space-x-10 font-bold text-lg">
-          <li className="bg-white border border-solid border-black px-5 py-2 rounded-md hover:bg-gray-200">
+        <ul className="flex space-x-2 font-bold text-lg">
+          <li className="bg-white border border-solid border-black px-2 py-2 rounded-md hover:bg-gray-200">
             <Link to="/">Home</Link>
           </li>
-          <li className="bg-white border border-solid border-black px-5 py-2 rounded-md hover:bg-gray-200">
+          <li className="bg-white border border-solid border-black px-2 py-2 rounded-md hover:bg-gray-200">
             <Link to="/about">About</Link>
           </li>
-          <li className="bg-white border border-solid border-black px-5 py-2 rounded-md hover:bg-gray-200">
+          <li className="bg-white border border-solid border-black px-2 py-2 rounded-md hover:bg-gray-200">
             <Link to="/contact">Contact</Link>
           </li>
-          <li className="bg-white border border-solid border-black px-5 py-2 rounded-md hover:bg-gray-200">
+          <li className="bg-white border border-solid border-black px-2 py-2 rounded-md hover:bg-gray-200">
             <Link to="/grocery">Grocery</Link>
+          </li>
+          <li className="bg-white border border-solid border-black px-5 py-2 rounded-md text-black cursor-pointer hover:bg-red-500">
+            <Link to="/cart">🛒 ({cart.length} Items)</Link>
           </li>
         </ul>
 

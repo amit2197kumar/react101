@@ -8,16 +8,21 @@ import Contact from "./components/Contact";
 import Test from "./components/Test";
 import Error from "./components/Error";
 import RestaurantDetail from "./components/RestaurantMenu";
+import { Provider } from 'react-redux';
+import appStore from './utils/AppStore';
+import Cart from './components/Cart';
 
 // Lazy loading, import only when needed, code splitting, reduce initial bundle size
 const Grocery = lazy(() => import('./components/Grocery'));
 
 const App = () => {
   return (
-    <div>
-      <Header />
-      <Outlet />
-    </div>
+      <div>
+        <Provider store={appStore}>
+        <Header />
+        <Outlet />
+        </Provider>
+      </div>
   );
 }
 
@@ -51,6 +56,10 @@ const appConfig = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: "/cart",
+        element: <Cart/>
+      }
     ],
   },
   {
