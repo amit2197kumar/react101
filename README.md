@@ -14,3 +14,4 @@
 | 9. Optimizing our App | 01/05 | 01/05 | Custom Hooks, Lazy Loading | [Episode_9](https://github.com/amit2197kumar/react101/blob/episode9/README.md) |
 | 10. Jo dikhta hai, vo bikta hai | 02/05 | 06/05 | Tailwind CSS | [Episode_10](https://github.com/amit2197kumar/react101/blob/episode10/README.md) |
 | 11. Data is the new oil | 10/05 | 11/05 | Props Driling, Lifting State Up, React Context | [Episode_11](https://github.com/amit2197kumar/react101/blob/episode11/README.md) |
+| 12. Let's build our store | 12/05 | 13/05 | Redux Toolkit, redux, slice, `useSelector()`, `useDispatch()` | [Episode_12](https://github.com/amit2197kumar/react101/blob/episode12/README.md) |
